@@ -8,7 +8,10 @@
       const params = new URLSearchParams(window.location.search);
       const source = params.get("source") || "direct";
 
-      window.location.href = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
+      document.body.appendChild(iframe);
 
       setTimeout(() => {
         window.location.href = `https://t.me/TommysFindings_bot?start=${source}`;
