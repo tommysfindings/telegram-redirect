@@ -7,18 +7,16 @@
         window.onload = function() {
             const params = new URLSearchParams(window.location.search);
             const source = params.get("source") || "direct";
-            const campaignType = params.get("campaignType") || "unknown";
             
-            const startParam = `${source}_${campaignType}`;
-            console.log("Start parameter:", startParam);
+            console.log("Received source:", source);
 
             const iframe = document.createElement("iframe");
             iframe.style.display = "none";
-            iframe.src = `tg://resolve?domain=TommysFindings_bot&start=${startParam}`;
+            iframe.src = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
             document.body.appendChild(iframe);
 
             setTimeout(() => {
-                window.location.href = `https://t.me/TommysFindings_bot?start=${startParam}`;
+                window.location.href = `https://t.me/TommysFindings_bot?start=${source}`;
             }, 700);
         };
     </script>
