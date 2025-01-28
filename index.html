@@ -5,21 +5,31 @@
     <title>Redirect to Telegram</title>
     <script>
         window.onload = function() {
+            // קבלת הפרמטר מה-URL
             const params = new URLSearchParams(window.location.search);
             const source = params.get("source") || "direct";
             
-            console.log("Received source:", source);
+            // לוג לדיבוג
+            console.log("Received source parameter:", source);
             
-            // ישירות ננסה לפתוח את הטלגרם
-            window.location.href = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
+            // בניית הפרמטר start
+            const startParam = source;
+
+            // ניסיון פתיחה בטלגרם נייטיב
+            window.location.href = `tg://resolve?domain=TommysFindings_bot&start=${startParam}`;
             
-            // אחרי חצי שנייה, אם לא הצליח, ננסה את הקישור הרגיל
+            // אם לא עבד, ננסה את הדפדפן אחרי חצי שנייה
             setTimeout(() => {
-                window.location.href = `https://t.me/TommysFindings_bot?start=${source}`;
-            }, 1000);
+                if (document.hidden) return; // אם הדף כבר לא נראה, כנראה שהפתיחה הצליחה
+                window.location.href = `https://t.me/TommysFindings_bot?start=${startParam}`;
+            }, 500);
         };
     </script>
 </head>
 <body>
+    <div id="debug" style="display:none;">
+        <h2>Debug Info:</h2>
+        <pre id="debugInfo"></pre>
+    </div>
 </body>
 </html>
