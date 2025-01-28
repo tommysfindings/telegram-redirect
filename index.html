@@ -9,15 +9,14 @@
             const source = params.get("source") || "direct";
             
             console.log("Received source:", source);
-
-            const iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
-            document.body.appendChild(iframe);
-
+            
+            // ישירות ננסה לפתוח את הטלגרם
+            window.location.href = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
+            
+            // אחרי חצי שנייה, אם לא הצליח, ננסה את הקישור הרגיל
             setTimeout(() => {
                 window.location.href = `https://t.me/TommysFindings_bot?start=${source}`;
-            }, 700);
+            }, 500);
         };
     </script>
 </head>
