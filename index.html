@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Redirect to Telegram</title>
-  <script>
-    window.onload = function() {
-      const params = new URLSearchParams(window.location.search);
-      const source = params.get("source") || "direct";
-
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
-      document.body.appendChild(iframe);
-
-      setTimeout(() => {
-        window.location.href = `https://t.me/TommysFindings_bot?start=${source}`;
-      }, 700);
-    };
-  </script>
+    <meta charset="utf-8" />
+    <title>Redirect to Telegram</title>
+    <script>
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const source = params.get("source") || "direct";
+            
+            console.log("Received source:", source);
+            
+            // ישירות ננסה לפתוח את הטלגרם
+            window.location.href = `tg://resolve?domain=TommysFindings_bot&start=${source}`;
+            
+            // אחרי חצי שנייה, אם לא הצליח, ננסה את הקישור הרגיל
+            setTimeout(() => {
+                window.location.href = `https://t.me/TommysFindings_bot?start=${source}`;
+            }, 1000);
+        };
+    </script>
 </head>
 <body>
 </body>
